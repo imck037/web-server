@@ -11,7 +11,7 @@ fn main() {
     let listener = TcpListener::bind("127.0.0.1:2020").unwrap();
     let pool = Threadpool::new(5);
 
-    for stream in listener.incoming() {
+    for stream in listener.incoming().take(2) {
         let stream = stream.unwrap();
         pool.execute(|| {
             handle_client(stream);
